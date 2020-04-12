@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+    <script>
+        document.getElementById("base_body").style.background = "#212529";
+
+    </script>
+    <div class="container-fluid" style="margin-top: 15vh">
+        <div class="row justify-content-center" id="files-container">
+            <h2><span class="badge badge-dark">Hidden Files</span></h2>
+        <div class="row col-md-12 justify-content-center m-2" id="hidden-container">
+            <div id="file-card" class="col-md-2 m-2 text-center p-0 rounded">
+            </div>
+        </div>
+        <table class="col-md-6 table table-striped table-dark">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Files</th>
+              <th scope="col">Uploaded on</th>
+              <th scope="col">Hide</th>
+            </tr>
+          </thead>
+          <tbody id="HDBle-body">
+          </tbody>
+        </table>
+        </div>
+    </div>
+
+{% endblock content %}
+
+{% block extra_js %}
+     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+     <script src="{{ js }}/vault_manager.js"></script>
+     <script src="{{ js }}/mediaelement.js"></script>
+     <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+    <script>authVault({{ user_id }},'{{ csrf_token }}');</script>
+{% endblock extra_js %}

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container" style="margin-top: 15vh">
+    <div class="row justify-content-center" id="files-container">
+        <form action="change_psw" class="form col-md-4" method="post">
+            {% csrf_token %}
+            <h5><span class="badge badge-info">Vault Settings</span></h5>
+
+        <label for="vault_psw">Set or Change vault password</label>
+        <input class="form-control" id="vault_psw" maxlength="10" minlength="6" required type="password" name="vault_psw">
+        <input class="form-control btn btn-info" type="submit" value="change">
+    </form>
+    <form action="change_psw" class="form col-md-4" method="post">
+        {% csrf_token %}
+        <h5><span class="badge badge-warning text-white">Account Settings</span></h5>
+        <label for="acc_psw">Change account password</label>
+        <input class="form-control" id="acc_psw" minlength="8" type="password" required name="acc_psw">
+        <input class="form-control btn btn-info" type="submit" value="change">
+    </form>
+    </div>
+    </div>
+
+{% endblock content %}
+{% block extra_js %}
+{% endblock extra_js %}

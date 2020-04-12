@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-panel ps" id="main-panel">
+     <div class="panel-header panel-header-sm">
+      </div>
+         <div class="content">
+            <div class="container-fluid">
+                <div class="card text-center">
+                    <div><h5 class="card-title p-3 notch bg-gradient text-white text-center mt-0" style="width: fit-content"><b>Your Files</b></h5>  </div>
+                    <div class="row justify-content-center" id="files-container">
+                        <div id="file-card" class="col-md-2 m-2 text-center p-0 rounded border border-default">
+                        </div>
+                </div>
+                </div>
+            </div>
+
+             <div class="container-fluid">
+                <div class="card">
+                        <div class="d-flex justify-content-between">
+                        <h5 class="card-title p-3 notch bg-gradient text-white text-center mt-0" style="width: fit-content"><b>Browse Folders</b></h5>
+                        </div>
+
+                   <div class="row justify-content-center" id="-container">
+                        <div class="col-md-12">
+                        <table class="table table-hover">
+                          <thead class="font-weight-bold">
+                            <tr>
+                              <th scope="col" class="font-weight-bold">#</th>
+                              <th scope="col" class="font-weight-bold">Folder</th>
+                              <th scope="col" class="font-weight-bold">Uploaded on</th>
+                              <th scope="col" class="font-weight-bold">Options</th>
+                            </tr>
+                          </thead>
+                          <tbody id="folder-container">
+
+                          </tbody>
+                        </table>
+                    </div>
+                </div>
+                </div>
+             </div>
+         </div>
+     </div>
+{% endblock content %}
+
+{% block extra_js %}
+   <script src="{{ js }}/mediaelement.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+        <script src="{{ js }}/file_manager.js"></script>
+        <script src="{{ js }}/sharing_manager.js"></script>
+        <script>
+            loadSharedFiles({{ request.session.user_id }}, "{{ csrf_token }}", {{ folder_id }});
+        </script>
+{% endblock extra_js %}

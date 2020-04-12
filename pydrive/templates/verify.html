@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+{% load static %}
+{% static 'img' as path %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Pydrive</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.c om/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8"/>
+    <title>Verification</title>
+    <style>
+        #full-size{
+          height:100%;
+          width:100%;
+          overflow:hidden; /* or overflow:auto; if you want scrollbars */
+        }
+        .card-container{
+            color: #F37335;
+            border-radius: 10px;
+            box-shadow: 1px 1px 10px #c3c3c3;
+            background: white;
+        }
+        input::placeholder{
+            color:white;
+        }
+
+        .left:hover{
+            box-shadow: 1px 1px 40px #c3c3c3;
+        }
+        .right:hover{
+            box-shadow: 1px 1px 40px #c3c3c3;
+        }
+        .title-holder{
+            border-radius: 0 0 10px 10px;
+            width: fit-content;
+            padding: 15px;
+            margin:0 auto 20px auto ;
+            box-shadow: 1px 1px 10px #c1c1c1;
+            background: linear-gradient(40deg,#45cafc,#303f9f) !important;
+            color: white;
+        }
+        .mail{
+            animation: move 2s infinite;
+        }
+        @keyframes move {
+            0%{margin-top: 50px}
+            50%{margin-top: 70px}
+            100%{margin-top: 50px}
+        }
+        @media only screen and (max-width: 992px) {
+          .mail{visibility: hidden}
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5 p-4">
+
+        <div class="row justify-content-center">
+
+             <div class="col-md-12 row justify-content-center">
+                <img src="../static/img/mail.svg" class="col-md-5 col-sm-6 col-xs-12 mail" style="position: absolute;z-index: 1"/>
+            <img src="../static/img/mailCover.svg" class="col-md-5 col-sm-6 col-xs-6 mail" style="position: absolute;z-index: -1"/>
+            <div class="col-md-3 text-center card-container" style="position: fixed;z-index: 0;height:412px">
+            </div>
+                 <form  class="col-md-4 text-center" action="validate_otp" method="post" style="z-index: 15">
+                     {% csrf_token %}
+                <h5 class="title-holder">VERIFICATION</h5>
+                <p class="text-muted">You will need to verify your email to complete the registration</p>
+                <div class="row justify-content-center">
+                    <div class="input-group col-md-10 mb-3 pb-1">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text bg-info text-white" id="basic-addon1">@</span>
+                          </div>
+                          <input name="email_field" id="email_field" type="email" required class="form-control" placeholder="Email address" aria-label="Email" aria-describedby="basic-addon1">
+                    </div>
+                    <div class="input-group col-md-10 mb-3 pb-1">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text bg-info text-white" id="basic-addon1">*</span>
+                              </div>
+                              <input name="otp_field" id="otp_field" type="number" min="100000" max="999999" required class="form-control" placeholder="OTP" aria-label="Email" aria-describedby="basic-addon1"/>
+                    </div>
+                </div>
+
+                <input type="submit" class="btn btn-success btn-md" style="margin-bottom: 80px" value="Verify"/>
+            </form>
+             </div>
+
+        </div>
+
+    </div>
+</body>
+</html>

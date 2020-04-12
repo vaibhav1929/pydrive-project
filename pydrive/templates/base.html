@@ -1,0 +1,197 @@
+{% load static %}
+{% static 'js' as js %}
+{% static 'css' as css %}
+{% static 'img' as img %}
+
+<!DOCTYPE html>
+<html lang="en" id="html">
+    <head>
+        <meta charset="utf-8" />
+          <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+          <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+          <!--     Fonts and icons     -->
+          <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+          <!-- CSS Files -->
+          <link href="{{ css }}/bootstrap.min.css" rel="stylesheet" />
+          <link href="{{ css }}/mediaelement.css" rel="stylesheet"/>
+
+          <link href="{{ css }}/fileinput.min.css" media="all" rel="stylesheet" type="text/css" />
+          <link href="{{ css }}/ui_helper.css" rel="stylesheet" />
+          <link href="{{ css }}/styles.css" rel="stylesheet" />
+
+          <script src="https://kit.fontawesome.com/13852d7c0f.js" crossorigin="anonymous"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/mediaelement/4.2.16/mediaelement.min.js"></script>
+
+    </head>
+
+<body id="base_body">
+
+                <div class="sidebar" id="sidebar" data-color="blue" style="z-index: 2">
+                  <div class="logo">
+                      <h5 class="text-white text-center font-weight-bold">pyDRIVE</h5>
+                      <h6 class="text-white text-center" style="font-weight: normal">{{ request.session.user_email }}</h6>
+                  </div>
+                  <div class="sidebar-wrapper" id="sidebar-wrapper">
+                    <ul class="nav">
+                      <li class="menu-item" id="dashboard-tab" onclick="">
+                        <a href="{{ request.url }}/dashboard">
+                          <i class="fas fa-hdd"></i>
+                          <p class="font-weight-bold">Your Files</p>
+                        </a>
+                      </li>
+                      <li class="menu-item" id="shared_dashboard-tab" onclick="">
+                        <a href="{{ request.url }}/shared_dashboard">
+                          <i class="fas fa-users"></i>
+                          <p class="font-weight-bold">Shared</p>
+                        </a>
+                      </li>
+                      <li class="menu-item" id="dashboard?starred=true-tab" onclick="">
+                        <a href="{{ request.url }}/dashboard?starred=true">
+                          <i class="fas fa-star"></i>
+                          <p class="font-weight-bold">Starred</p>
+                        </a>
+                      </li>
+                      <li class="menu-item" id="vault_dashboard-tab" onclick="">
+                        <a href="{{ request.url }}/vault_dashboard">
+                          <i class="fas fa-key"></i>
+                          <p class="font-weight-bold">Vault</p>
+                        </a>
+                      </li>
+                      <li class="menu-item" id="settings-tab" onclick="">
+                        <a href="{{ request.url }}/settings">
+                          <i class="fas fa-user-astronaut"></i>
+                          <p class="font-weight-bold">User Profile</p>
+                        </a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+    <nav class="navbar navbar-expand-lg navbar-absolute" style="z-index: 1;top:0;background: #141e30;">
+        <div class="container-fluid">
+          <div class="navbar-wrapper" id="navbar-wrapper">
+            <div class="navbar-toggle">
+              <button type="button" class="navbar-toggler" onclick="toggle()">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </button>
+            </div>
+            <a class="navbar-brand" href="#">Dashboard</a>
+          </div>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+            <span class="navbar-toggler-bar navbar-kebab"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navigation">
+            <ul class="navbar-nav">
+              <li class="nav-item ml-3">
+                <a class="nav-link bg-info btn-round font-weight-bolder" href="" data-toggle="modal"
+                   data-target="#uploadModal" onclick="setFolderOptions('{{ request.session.user_id }}',document.getElementById('folderOptions'))">
+                  <i class="fas fa-plus fa icon"></i>
+                  <p>
+                    <span class="">Upload</span>
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a  data-toggle="modal" data-target="#folderModal" href=""
+                                     onclick="setFolderOptions('{{ request.session.user_id }}',document.getElementById('folderOptions2'))"
+                                     class="nav-link bg-info btn-round font-weight-bolder ml-2">
+                                <i class="fas fa-plus icon"></i><b> Create Folder</b>
+                </a>
+              </li>
+
+              <li class="nav-item ml-2">
+                <a class="nav-link" href="{{ request.url }}/logout">
+<i class="fas fa-sign-out fa icon"></i>
+                      <span class="">Sign out</span>
+                </a>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </nav>
+
+<!-- File Upload Modal -->
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Upload Files</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+            <div class="file-loading">
+                {% csrf_token %}
+                <input id="file_input" name="file_input" type="file"  multiple>
+            </div>
+          <div class="form-group">
+              <label for="folderOptions">Select Parent Folder</label>
+              <select class="form-control" id="folderOptions" onchange="setParent(this)"></select>
+          </div>
+      </div>
+      <div class="modal-footer">
+
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="loadFiles({{ request.session.user_id }}, '{{ csrf_token }}', '{{ starred }}', '{{ folder_id }}');">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+       <script>
+        let isOpened = false;
+        function toggle(){
+            if(!isOpened){
+                document.getElementById("navbar-wrapper").style.marginLeft = "250px";
+                document.getElementById("html").classList.add('nav-open');
+            }
+            else{
+                document.getElementById("navbar-wrapper").style.marginLeft = "0px";
+                document.getElementById("html").classList.remove('nav-open');
+            }
+            isOpened = !isOpened;
+
+        }
+        function menuClick() {
+         // document.getElementsByClassName("active")[0].classList.remove("active");
+         // obj.classList.add('active');
+            let currentTab = window.location.href.substring(window.location.href.indexOf('0/')+2)+"-tab";
+            document.getElementById(currentTab).classList.add("active");
+        }
+        menuClick();
+    </script>
+
+    {% block content %}{% endblock content %}
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+    <script src="{{ js }}/jquery.min.js"></script>
+    <script src="{{ js }}/bootstrap.min.js"></script>
+    <script src="{{ js }}/bootstrap-notify.js"></script>
+    <script src="{{ js }}/piexif.min.js"></script>
+    <script sec="{{ js }}/purify.min.js"></script>
+    <script src="{{ js }}/fileinput.min.js"></script>
+    <script src="{{ js }}/file_manager.js"></script>
+
+    <script>
+        let parentId = 1;
+        function setParent(element){
+            parentId = element.value;
+            Toast.fire({title:parentId})
+        }
+        $(document).ready(function() {
+            $("#file_input").fileinput({
+                uploadUrl: "/upload_files",
+                uploadExtraData:function () {
+                    return {'csrfmiddlewaretoken': '{{ csrf_token }}', 'parent_id':$("#folderOptions").children("option:selected").val()};
+                }
+            });
+        });
+
+    </script>
+{% block extra_js %}{% endblock extra_js %}
+
+</body>
+</html>

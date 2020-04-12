@@ -1,0 +1,17 @@
+#files-container{
+    margin-left: 0vh;
+}
+@media screen and (max-width: 991px){
+    #files-container{
+        margin-left: 0;
+    }
+
+}
+.notch{
+        border-radius:0 0 10px 10px;
+    margin-left: auto;margin-right: auto
+    }
+.bg-gradient{
+    background: linear-gradient(40deg,#ffd86f,#fc6262) !important;
+    box-shadow: 0 2px 4px #b4b4b4;
+}
