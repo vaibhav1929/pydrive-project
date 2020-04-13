@@ -54,8 +54,14 @@ Recommended to refer https://docs.djangoproject.com/en/3.0/topics/migrations/ if
 Now setup is completed. follow the below link if any problem occurred.
 
 ####For testing purpose use following account:
+
 1.email address: vaibhavpatel1921@gmail.com, password:12345678, vault password:1234
 
 2.email address: yash49@gmail.com, password:12345678
 
 https://docs.djangoproject.com/en/3.0/intro/tutorial01/
+
+## For use of university
+
+### Roll No:19BCE529 : https://github.com/vaibhav1929/pydrive-project
+### Roll No:19BCE525 : https://github.com/yash49/pydrive-project
