@@ -1,3 +1,9 @@
+## PSC project
+## Semester : 4
+## Division : D
+### Roll No:19BCE525 : https://github.com/yash49/pydrive-project
+### Roll No: 19BCE529 : https://github.com/vaibhav1929/pydrive-project
+
 # pydrive-project
 File storage &amp; sharing system (like google drive) built with Django (python).
 Feature rich drive storage system to manage and backup your file in cloud. can upload any file in drive.
@@ -7,6 +13,7 @@ share files and folders with other people with easy steps.
 Hide your important and confidential files in vault. need password to open the vault.
 #### Modern material design
 Easily manage files with better and simple ui.
+
 
 ## Screenshots
 
@@ -61,7 +68,3 @@ Now setup is completed. follow the below link if any problem occurred.
 
 https://docs.djangoproject.com/en/3.0/intro/tutorial01/
 
-## For use of university
-
-### Roll No:19BCE529 : https://github.com/vaibhav1929/pydrive-project
-### Roll No:19BCE525 : https://github.com/yash49/pydrive-project
