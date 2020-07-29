@@ -1,3 +1,6 @@
+## Contributors :robot:
+## <a href="https://www.github.com/vaibhav1929">Vaibhav Sorathiya</a>
+## <a href="https://www.github.com/yash49">Yash shah</a>
 ## PSC project
 ## Semester : 4
 ## Division : D
